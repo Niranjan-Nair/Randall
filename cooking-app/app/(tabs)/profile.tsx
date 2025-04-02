@@ -1,24 +1,28 @@
-import React from "react";
-import { Image, StyleSheet, Platform, Pressable } from "react-native";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
+import React, { useState } from "react";
+import { StyleSheet, Platform, Pressable } from "react-native";
+import Content from "@/components/Content";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { IconSymbol } from "@/components/ui/IconSymbol";
+import { Colors } from "@/constants/Colors";
+import { useColorScheme } from "@/hooks/useColorScheme";
 
 export default function ProfileScreen() {
+    const colorscheme = useColorScheme();
+
+    const [data, setData] = useState<{
+        preferences: boolean[];
+    }>({ preferences: [] });
+
     return (
-        <ParallaxScrollView
-            headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-            headerImage={
-                <Image
-                    source={require("@/assets/images/partial-react-logo.png")}
-                    style={styles.reactLogo}
-                />
-            }>
+        <Content>
             <ThemedView style={styles.titleContainer}>
                 <ThemedText type="title">Profile</ThemedText>
             </ThemedView>
             <ThemedView style={styles.stepContainer}>
-                <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+                <ThemedText type="subtitle">Dietary Preferences</ThemedText>
+                <Pressable style={styles.checkBox}>
+                </Pressable>
                 <ThemedText>
                     Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
                     Press{" "}
@@ -48,7 +52,7 @@ export default function ProfileScreen() {
                     <ThemedText type="defaultSemiBold">app-example</ThemedText>.
                 </ThemedText>
             </ThemedView>
-        </ParallaxScrollView>
+        </Content>
     );
 }
 
@@ -69,4 +73,11 @@ const styles = StyleSheet.create({
         left: 0,
         position: "absolute",
     },
+    checkBox: {
+        height: 30,
+        width: 30,
+        borderWidth: 2,
+        borderColor: Colors.dark.tint,
+        borderRadius: 8,
+    }
 });
