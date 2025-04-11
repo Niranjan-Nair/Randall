@@ -19,78 +19,77 @@ export default function ProfileScreen() {
 
     return (
         <View style={{paddingVertical: 60}}>
-        {/* Top Bar */}
-        <View style={styles.topBar}>
-            <Pressable style={styles.topIcon}>
-                <Text style={styles.topIconText}>←</Text>
-            </Pressable>
-            <Text style={styles.topTitle}>Profile</Text>
-            <Pressable style={styles.topIcon}>
-                <Text style={styles.topIconText}>⚙</Text>
-            </Pressable>
-        </View>
-        <ScrollView style={styles.container}>
-
-            {/* Profile Header */}
-            <ThemedView style={styles.profileContainer}>
-                <View style={styles.avatarPlaceholder} />
-                <View style={styles.profileTextContainer}>
-                    <Text style={styles.username}>@username</Text>
-                    <Text style={styles.bio}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, s...
-                    </Text>
-                </View>
-                <Pressable style={styles.editButton}>
-                    <Text style={styles.editIcon}>✎</Text>
+            {/* Top Bar */}
+            <View style={styles.topBar}>
+                <Pressable style={styles.topIcon}>
+                    <Text style={styles.topIconText}>←</Text>
                 </Pressable>
-            </ThemedView>
-
-            {/* Dietary Preferences Section */}
-            <ThemedView style={styles.section}>
-                <ThemedText type="subtitle" style={styles.sectionTitle}>
-                    Dietary Preferences
-                </ThemedText>
-
-                {dietaryOptions.map((label, index) => (
-                    <View key={index} style={styles.preferenceRow}>
-                        <Text style={styles.preferenceLabel}>{label}</Text>
-                        <Pressable
-                            style={[
-                                styles.checkBox,
-                                preferences[index] && styles.checkBoxChecked
-                            ]}
-                            onPress={() => togglePreference(index)}
-                        >
-                            {preferences[index] && <Text style={styles.checkMark}>✓</Text>}
-                        </Pressable>
-                    </View>
-                ))}
-            </ThemedView>
-
-            {/* My Fridge Section */}
-            <ThemedView style={styles.section}>
-                <ThemedText type="subtitle" style={styles.sectionTitle}>
-                    My Fridge
-                </ThemedText>
-
-                {[1, 2, 3].map((_, index) => (
-                    <View key={index} style={styles.ingredientRow}>
-                        <Text style={styles.ingredientLabel}>Ingredient</Text>
-                        <Text style={styles.ingredientAmount}>0g</Text>
-                        <Pressable style={styles.iconButtonBlue}>
-                            <Text style={styles.iconText}>✎</Text>
-                        </Pressable>
-                        <Pressable style={styles.iconButtonRed}>
-                            <Text style={styles.iconText}>🗑</Text>
-                        </Pressable>
-                    </View>
-                ))}
-
-                <Pressable style={styles.addButton}>
-                    <Text style={styles.addButtonText}>Add Ingredient</Text>
+                <Text style={styles.topTitle}>Profile</Text>
+                <Pressable style={styles.topIcon}>
+                    <Text style={styles.topIconText}>⚙</Text>
                 </Pressable>
-            </ThemedView>
-        </ScrollView>
+            </View>
+            <ScrollView style={styles.container}>
+                {/* Profile Header */}
+                <ThemedView style={styles.profileContainer}>
+                    <View style={styles.avatarPlaceholder} />
+                    <View style={styles.profileTextContainer}>
+                        <Text style={styles.username}>@username</Text>
+                        <Text style={styles.bio}>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, s...
+                        </Text>
+                    </View>
+                    <Pressable style={styles.editButton}>
+                        <Text style={styles.editIcon}>✎</Text>
+                    </Pressable>
+                </ThemedView>
+
+                {/* Dietary Preferences Section */}
+                <ThemedView style={styles.section}>
+                    <ThemedText type="subtitle" style={styles.sectionTitle}>
+                        Dietary Preferences
+                    </ThemedText>
+
+                    {dietaryOptions.map((label, index) => (
+                        <View key={index} style={styles.preferenceRow}>
+                            <Text style={styles.preferenceLabel}>{label}</Text>
+                            <Pressable
+                                style={[
+                                    styles.checkBox,
+                                    preferences[index] && styles.checkBoxChecked
+                                ]}
+                                onPress={() => togglePreference(index)}
+                            >
+                                {preferences[index] && <Text style={styles.checkMark}>✓</Text>}
+                            </Pressable>
+                        </View>
+                    ))}
+                </ThemedView>
+
+                {/* My Fridge Section */}
+                <ThemedView style={styles.section}>
+                    <ThemedText type="subtitle" style={styles.sectionTitle}>
+                        My Fridge
+                    </ThemedText>
+
+                    {[1, 2, 3].map((_, index) => (
+                        <View key={index} style={styles.ingredientRow}>
+                            <Text style={styles.ingredientLabel}>Ingredient</Text>
+                            <Text style={styles.ingredientAmount}>0g</Text>
+                            <Pressable style={styles.iconButtonBlue}>
+                                <Text style={styles.iconText}>✎</Text>
+                            </Pressable>
+                            <Pressable style={styles.iconButtonRed}>
+                                <Text style={styles.iconText}>🗑</Text>
+                            </Pressable>
+                        </View>
+                    ))}
+
+                    <Pressable style={styles.addButton}>
+                        <Text style={styles.addButtonText}>Add Ingredient</Text>
+                    </Pressable>
+                </ThemedView>
+            </ScrollView>
         </View>
     );
 }
