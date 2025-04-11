@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Pressable, Text } from "react-native";
+import { StyleSheet, View, Pressable, Text, ScrollView } from "react-native";
 import Content from "@/components/Content";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
@@ -9,7 +9,6 @@ import { Colors } from "@/constants/Colors";
 const dietaryOptions = ["Vegetarian", "Vegan", "Halal", "Kosher"];
 
 export default function ProfileScreen() {
-    const colorScheme = useColorScheme();
     const [preferences, setPreferences] = useState<boolean[]>([true, false, false, false]);
 
     const togglePreference = (index: number) => {
@@ -19,17 +18,18 @@ export default function ProfileScreen() {
     };
 
     return (
-        <Content>
-            {/* Top Bar */}
-            <View style={styles.topBar}>
-                <Pressable style={styles.topIcon}>
-                    <Text style={styles.topIconText}>←</Text>
-                </Pressable>
-                <Text style={styles.topTitle}>Profile</Text>
-                <Pressable style={styles.topIcon}>
-                    <Text style={styles.topIconText}>⚙</Text>
-                </Pressable>
-            </View>
+        <View style={{paddingVertical: 60}}>
+        {/* Top Bar */}
+        <View style={styles.topBar}>
+            <Pressable style={styles.topIcon}>
+                <Text style={styles.topIconText}>←</Text>
+            </Pressable>
+            <Text style={styles.topTitle}>Profile</Text>
+            <Pressable style={styles.topIcon}>
+                <Text style={styles.topIconText}>⚙</Text>
+            </Pressable>
+        </View>
+        <ScrollView style={styles.container}>
 
             {/* Profile Header */}
             <ThemedView style={styles.profileContainer}>
@@ -90,7 +90,8 @@ export default function ProfileScreen() {
                     <Text style={styles.addButtonText}>Add Ingredient</Text>
                 </Pressable>
             </ThemedView>
-        </Content>
+        </ScrollView>
+        </View>
     );
 }
 
@@ -99,11 +100,16 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingHorizontal: 16,
-        paddingVertical: 12,
+        paddingVertical: 16,
         borderBottomWidth: 1,
         borderBottomColor: "#444",
-        marginBottom: 12,
+        paddingHorizontal: 16,
+    },
+    container: {
+        backgroundColor: "#111",
+        paddingHorizontal: 16,
+        paddingTop: 14,
+        marginBottom: 80,
     },
     topTitle: {
         fontSize: 20,
