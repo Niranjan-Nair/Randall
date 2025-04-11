@@ -52,12 +52,12 @@ const posts = [
 
 export default function FeedScreen() {
     return (
+        <View style={{paddingVertical: 60}}>
+        {/* Top Bar */}
+        <View style={styles.topBar}>
+            <Text style={styles.topTitle}>Feed</Text>
+        </View>
         <ScrollView style={styles.container}>
-            {/* Top Bar */}
-            <View style={styles.topBar}>
-                <Text style={styles.topTitle}>Feed</Text>
-            </View>
-
             {/* Feed Posts */}
             {posts.map((post, index) => (
                 <View key={index} style={styles.postCard}>
@@ -79,14 +79,14 @@ export default function FeedScreen() {
                     <View style={styles.interactionRow}>
                         <View style={styles.iconGroup}>
                             <Text style={styles.heartIcon}>❤️</Text>
-                            <Text>{post.likes}</Text>
+                            <Text style={{color: "#fff"}}>{post.likes}</Text>
                         </View>
                         <View style={styles.iconGroup}>
                             <Text style={styles.commentIcon}>💬</Text>
-                            <Text>{post.comments}</Text>
+                            <Text style={{color: "#fff"}}>{post.comments}</Text>
                         </View>
-                        <Pressable style={styles.editIcon}>
-                            <Text>✏️</Text>
+                        <Pressable style={styles.viewIcon}>
+                            <Text style={{fontWeight: "bold"}}>Open</Text>
                         </Pressable>
                     </View>
 
@@ -95,14 +95,16 @@ export default function FeedScreen() {
                 </View>
             ))}
         </ScrollView>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#111",
-        flex: 1,
         paddingHorizontal: 16,
+        paddingTop: 14,
+        marginBottom: 80,
     },
     topBar: {
         alignItems: "center",
@@ -110,7 +112,6 @@ const styles = StyleSheet.create({
         paddingVertical: 16,
         borderBottomWidth: 1,
         borderBottomColor: "#444",
-        marginBottom: 12,
     },
     topTitle: {
         fontSize: 20,
@@ -118,38 +119,38 @@ const styles = StyleSheet.create({
         color: "#fff",
     },
     postCard: {
-        backgroundColor: "#f2f2f2",
         borderRadius: 12,
         padding: 12,
-        marginBottom: 20,
+        marginBottom: 12,
     },
     headerRow: {
         flexDirection: "row",
         alignItems: "center",
-        marginBottom: 8,
+        marginBottom: 16,
     },
     profilePicPlaceholder: {
-        width: 24,
-        height: 24,
+        width: 40,
+        height: 40,
         borderRadius: 6,
         backgroundColor: "#fff",
         marginRight: 8,
     },
     username: {
+        color: "#fff",
         fontWeight: "bold",
-        fontSize: 14,
+        fontSize: 16,
         flex: 1,
     },
     date: {
-        fontSize: 12,
-        color: "#555",
+        fontSize: 14,
+        color: "#aaa",
     },
     imageArea: {
-        marginBottom: 8,
+        marginBottom: 16,
         position: "relative",
     },
     fakeImage: {
-        height: 180,
+        height: 250,
         borderRadius: 8,
         backgroundColor: "#fff",
     },
@@ -169,7 +170,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         gap: 16,
-        marginBottom: 8,
+        marginBottom: 16,
     },
     iconGroup: {
         flexDirection: "row",
@@ -178,18 +179,20 @@ const styles = StyleSheet.create({
     },
     heartIcon: {
         color: "#e88",
+        fontSize: 20,
     },
     commentIcon: {
         color: "#88aaff",
+        fontSize: 20,
     },
-    editIcon: {
+    viewIcon: {
         marginLeft: "auto",
         backgroundColor: "#c8f78d",
         padding: 4,
         borderRadius: 6,
     },
     description: {
-        fontSize: 14,
-        color: "#333",
+        fontSize: 16,
+        color: "#fff",
     },
 });
