@@ -1,5 +1,5 @@
 
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from "react-native";
 import React from "react";
 
 export interface HeaderProps {
@@ -31,43 +31,43 @@ export function Header(props: HeaderProps) {
 }
 const styles = StyleSheet.create(({
     root: {
-        flexDirection: 'row',
+        flexDirection: "row",
         paddingTop: 15,
         paddingLeft: 30,
         paddingBottom: 15,
         paddingRight: 30,
-        alignItems: 'center',
+        alignItems: "center",
         rowGap: 15,
         columnGap: 15,
-        alignSelf: 'stretch',
-        borderBottomColor: 'rgba(44, 34, 66, 1)',
+        alignSelf: "stretch",
+        borderBottomColor: "rgba(44, 34, 66, 1)",
         borderBottomWidth: 2,
-        backgroundColor: 'rgba(233, 234, 239, 1)',
+        backgroundColor: "rgba(233, 234, 239, 1)",
     },
     back: {
-        flexDirection: 'row',
+        flexDirection: "row",
         width: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
     },
     title: {
         maxHeight: 38,
         flexGrow: 1,
         flexShrink: 0,
         flexBasis: 0,
-        alignSelf: 'stretch',
-        overflow: 'hidden',
-        color: 'rgba(44, 34, 66, 1)',
-        textAlign: 'center',
-        fontFamily: 'Poppins',
+        alignSelf: "stretch",
+        overflow: "hidden",
+        color: "rgba(44, 34, 66, 1)",
+        textAlign: "center",
+        fontFamily: "Poppins",
         fontSize: 25,
-        fontStyle: 'normal',
-        fontWeight: '700',
+        fontStyle: "normal",
+        fontWeight: "700",
     },
     settingsButton: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
         rowGap: 10,
         columnGap: 10,
     },
