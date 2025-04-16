@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { ScrollView, View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
+import { db } from "@/scripts/firebase";
 
 const posts = [
     {
