@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ScrollView, View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
 
