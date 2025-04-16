@@ -6,15 +6,11 @@ export interface DirectionProps {
     description: string,
     hasPhoto?: boolean,
     modifiable?: boolean,
-    /** Used to locate this view in end-to-end tests. */
-    testID?: string,
 }
 
 export function Direction(props: DirectionProps) {
-
-
     return (
-        <View style={styles.root} testID={props.testID ?? "87:4463"}>
+        <View style={styles.root}>
             <View style={styles.photo}>
                 {props.modifiable && 
                     <View/>
