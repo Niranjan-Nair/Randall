@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
         borderColor: "#A5C4FF",
     },
     checkMark: {
-        color: "#fff",
+        color: "#000",
         fontSize: 16,
         fontWeight: "bold",
     },
@@ -246,6 +246,6 @@ const styles = StyleSheet.create({
     addButtonText: {
         fontSize: 16,
         fontWeight: "bold",
-        color: "#fff",
+        color: "#000",
     },
 });
