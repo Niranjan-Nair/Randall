@@ -45,3 +45,22 @@ export const posts = [
         comments: 1,
     },
 ];
+
+export const ingredients = [
+    {
+        ingredient: "brocolli",
+        categories: ["vegan"],
+    },
+    {
+        ingredient: "milk",
+        categories: ["lactose"],
+    },
+    {
+        ingredient: "bread",
+        categories: ["vegan"],
+    },
+    {
+        ingredient: "burger king foot lettuce",
+        categories: ["vegan"],
+    },
+];
