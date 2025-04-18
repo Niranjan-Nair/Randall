@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Pressable, Text, ScrollView } from "react-native";
+import { StyleSheet, View, Pressable, Text, ScrollView, TextInput } from "react-native";
 import Content from "@/components/Content";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
@@ -11,10 +11,24 @@ const dietaryOptions = ["Vegetarian", "Vegan", "Halal", "Kosher"];
 export default function ProfileScreen() {
     const [preferences, setPreferences] = useState<boolean[]>([true, false, false, false]);
 
+    const [bio, setBio] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit, s...");
+    const [editedBio, setEditedBio] = useState(bio);
+    const [isEditingBio, setIsEditingBio] = useState(false);
+
     const togglePreference = (index: number) => {
         const updated = [...preferences];
         updated[index] = !updated[index];
         setPreferences(updated);
+    };
+
+    const startEditingBio = () => {
+        setEditedBio(bio);
+        setIsEditingBio(true);
+    };
+
+    const saveBio = () => {
+        setBio(editedBio);
+        setIsEditingBio(false);
     };
 
     return (
@@ -29,17 +43,35 @@ export default function ProfileScreen() {
                     <Text style={styles.topIconText}>⚙</Text>
                 </Pressable>
             </View>
+
             <ScrollView style={styles.container}>
                 {/* Profile Header */}
                 <ThemedView style={styles.profileContainer}>
                     <View style={styles.avatarPlaceholder} />
                     <View style={styles.profileTextContainer}>
                         <Text style={styles.username}>@username</Text>
-                        <Text style={styles.bio}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, s...
-                        </Text>
+                        {isEditingBio ? (
+                            <>
+                                <TextInput
+                                    style={styles.bioInput}
+                                    value={editedBio}
+                                    onChangeText={setEditedBio}
+                                    multiline
+                                />
+                                <View style={styles.buttonRow}>
+                                    <Pressable style={styles.saveButton} onPress={saveBio}>
+                                        <Text style={styles.saveButtonText}>Save</Text>
+                                    </Pressable>
+                                    <Pressable style={styles.cancelButton} onPress={() => setIsEditingBio(false)}>
+                                        <Text style={styles.cancelButtonText}>Cancel</Text>
+                                    </Pressable>
+                                </View>
+                            </>
+                        ) : (
+                            <Text style={styles.bio}>{bio}</Text>
+                        )}
                     </View>
-                    <Pressable style={styles.editButton}>
+                    <Pressable style={styles.editButton} onPress={startEditingBio}>
                         <Text style={styles.editIcon}>✎</Text>
                     </Pressable>
                 </ThemedView>
@@ -152,6 +184,42 @@ const styles = StyleSheet.create({
     bio: {
         fontSize: 14,
         color: "#666",
+    },
+    bioInput: {
+        fontSize: 14,
+        color: "#000",
+        borderBottomWidth: 1,
+        borderColor: "#ccc",
+        paddingVertical: 2,
+    },
+    buttonRow: {
+        flexDirection: "row",
+        marginTop: 6,
+        gap: 10,
+    },
+    saveButton: {
+        backgroundColor: "#A5C4FF",
+        paddingVertical: 6,
+        paddingHorizontal: 12,
+        borderRadius: 8,
+        alignSelf: "flex-start",
+    },
+    saveButtonText: {
+        fontWeight: "bold",
+        color: "#000",
+        fontSize: 14,
+    },
+    cancelButton: {
+        backgroundColor: "#ddd",
+        paddingVertical: 6,
+        paddingHorizontal: 12,
+        borderRadius: 8,
+        alignSelf: "flex-start",
+    },
+    cancelButtonText: {
+        fontWeight: "bold",
+        color: "#333",
+        fontSize: 14,
     },
     editButton: {
         backgroundColor: "#A5C4FF",
