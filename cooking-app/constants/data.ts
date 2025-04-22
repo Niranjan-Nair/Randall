@@ -48,19 +48,19 @@ export const posts = [
 
 export const ingredients = [
     {
-        ingredient: "brocolli",
+        name: "brocolli",
         categories: ["vegan"],
     },
     {
-        ingredient: "milk",
+        name: "milk",
         categories: ["lactose"],
     },
     {
-        ingredient: "bread",
+        name: "bread",
         categories: ["vegan"],
     },
     {
-        ingredient: "burger king foot lettuce",
+        name: "burger king foot lettuce",
         categories: ["vegan"],
     },
 ];

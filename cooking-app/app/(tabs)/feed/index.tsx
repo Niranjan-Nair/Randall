@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingTop: 14,
         marginBottom: 80,
+        height: "100%",
     },
     topBar: {
         alignItems: "center",

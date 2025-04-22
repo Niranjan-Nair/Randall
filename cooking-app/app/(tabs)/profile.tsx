@@ -3,6 +3,12 @@ import { StyleSheet, View, Pressable, Text, ScrollView, TextInput } from "react-
 import Content from "@/components/Content";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+<<<<<<< HEAD
+=======
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { Colors } from "@/constants/Colors";
+import { ingredients } from "@/constants/data";
+>>>>>>> 87cefcb (skibirrrrrrry)
 
 const dietaryOptions = ["Vegetarian", "Vegan", "Halal", "Kosher"];
 
@@ -12,6 +18,8 @@ export default function ProfileScreen() {
     const [bio, setBio] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit, s...");
     const [editedBio, setEditedBio] = useState(bio);
     const [isEditingBio, setIsEditingBio] = useState(false);
+    const [preferredIngredients, setPreferredIngredients] = useState([]);
+    const [selectingIngredients, setSelectingIngredients] = useState(false);
 
     const [username, setUsername] = useState("username"); // only store what's after @
     const [editedUsername, setEditedUsername] = useState(username);
@@ -148,10 +156,12 @@ export default function ProfileScreen() {
                         My Fridge
                     </ThemedText>
 
-                    {[1, 2, 3].map((_, index) => (
+                    {preferredIngredients.map((ingredient: {
+                        name: string;
+                        categories: string[];
+                    }, index) => (
                         <View key={index} style={styles.ingredientRow}>
-                            <Text style={styles.ingredientLabel}>Ingredient</Text>
-                            <Text style={styles.ingredientAmount}>0g</Text>
+                            <Text style={styles.ingredientLabel}>{ingredient.name}</Text>
                             <Pressable style={styles.iconButtonBlue}>
                                 <Text style={styles.iconText}>✎</Text>
                             </Pressable>
@@ -161,7 +171,9 @@ export default function ProfileScreen() {
                         </View>
                     ))}
 
-                    <Pressable style={styles.addButton}>
+                    <Pressable style={styles.addButton} onPress={() => {
+                        setSelectingIngredients(!selectingIngredients);
+                    }}>
                         <Text style={styles.addButtonText}>Add Ingredient</Text>
                     </Pressable>
                 </ThemedView>
@@ -185,6 +197,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingTop: 14,
         marginBottom: 80,
+        height: "100%",
     },
     topTitle: {
         fontSize: 20,
