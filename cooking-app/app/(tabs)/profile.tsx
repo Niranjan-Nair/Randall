@@ -13,9 +13,15 @@ export default function ProfileScreen() {
     const [editedBio, setEditedBio] = useState(bio);
     const [isEditingBio, setIsEditingBio] = useState(false);
 
-    const [username, setUsername] = useState("username"); // only store what's after @
+    const [username, setUsername] = useState("username");
     const [editedUsername, setEditedUsername] = useState(username);
     const [isEditingUsername, setIsEditingUsername] = useState(false);
+
+    const [ingredients, setIngredients] = useState([
+        { name: "Ingredient", amount: 0 },
+        { name: "Ingredient", amount: 0 },
+        { name: "Ingredient", amount: 0 },
+    ]);
 
     const togglePreference = (index: number) => {
         const updated = [...preferences];
@@ -148,20 +154,45 @@ export default function ProfileScreen() {
                         My Fridge
                     </ThemedText>
 
-                    {[1, 2, 3].map((_, index) => (
+                    {ingredients.map((item, index) => (
                         <View key={index} style={styles.ingredientRow}>
-                            <Text style={styles.ingredientLabel}>Ingredient</Text>
-                            <Text style={styles.ingredientAmount}>0g</Text>
-                            <Pressable style={styles.iconButtonBlue}>
-                                <Text style={styles.iconText}>✎</Text>
-                            </Pressable>
-                            <Pressable style={styles.iconButtonRed}>
-                                <Text style={styles.iconText}>🗑</Text>
+                            <TextInput
+                                style={styles.ingredientLabel}
+                                value={item.name}
+                                onChangeText={(text) => {
+                                    const updated = [...ingredients];
+                                    updated[index].name = text;
+                                    setIngredients(updated);
+                                }}
+                            />
+                            <TextInput
+                                style={styles.ingredientAmount}
+                                value={String(item.amount)}
+                                keyboardType="numeric"
+                                onChangeText={(text) => {
+                                    const updated = [...ingredients];
+                                    updated[index].amount = parseInt(text) || 0;
+                                    setIngredients(updated);
+                                }}
+                            />
+                            <Pressable
+                                style={styles.iconButtonRed}
+                                onPress={() => {
+                                    const updated = ingredients.filter((_, i) => i !== index);
+                                    setIngredients(updated);
+                                }}
+                            >
+                                <Text style={styles.iconText}>×</Text>
                             </Pressable>
                         </View>
                     ))}
 
-                    <Pressable style={styles.addButton}>
+                    <Pressable
+                        style={styles.addButton}
+                        onPress={() =>
+                            setIngredients([...ingredients, { name: "New Ingredient", amount: 0 }])
+                        }
+                    >
                         <Text style={styles.addButtonText}>Add Ingredient</Text>
                     </Pressable>
                 </ThemedView>
@@ -169,6 +200,7 @@ export default function ProfileScreen() {
         </View>
     );
 }
+
 
 const styles = StyleSheet.create({
     topBar: {
@@ -345,10 +377,20 @@ const styles = StyleSheet.create({
     ingredientLabel: {
         flex: 1,
         fontSize: 16,
+        paddingVertical: 4,
+        paddingHorizontal: 6,
+        borderBottomWidth: 1,
+        borderColor: "#ccc",
+        marginRight: 8,
     },
     ingredientAmount: {
+        width: 60,
         fontSize: 16,
-        fontWeight: "bold",
+        paddingVertical: 4,
+        paddingHorizontal: 6,
+        borderBottomWidth: 1,
+        borderColor: "#ccc",
+        textAlign: "right",
         marginRight: 8,
     },
     iconButtonBlue: {
