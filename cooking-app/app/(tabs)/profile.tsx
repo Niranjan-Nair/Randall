@@ -3,12 +3,9 @@ import { StyleSheet, View, Pressable, Text, ScrollView, TextInput } from "react-
 import Content from "@/components/Content";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-<<<<<<< HEAD
-=======
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { Colors } from "@/constants/Colors";
 import { ingredients } from "@/constants/data";
->>>>>>> 87cefcb (skibirrrrrrry)
 
 const dietaryOptions = ["Vegetarian", "Vegan", "Halal", "Kosher"];
 
@@ -20,10 +17,6 @@ export default function ProfileScreen() {
     const [isEditingBio, setIsEditingBio] = useState(false);
     const [preferredIngredients, setPreferredIngredients] = useState([]);
     const [selectingIngredients, setSelectingIngredients] = useState(false);
-
-    const [username, setUsername] = useState("username"); // only store what's after @
-    const [editedUsername, setEditedUsername] = useState(username);
-    const [isEditingUsername, setIsEditingUsername] = useState(false);
 
     const togglePreference = (index: number) => {
         const updated = [...preferences];
@@ -41,18 +34,8 @@ export default function ProfileScreen() {
         setIsEditingBio(false);
     };
 
-    const startEditingUsername = () => {
-        setEditedUsername(username);
-        setIsEditingUsername(true);
-    };
-
-    const saveUsername = () => {
-        setUsername(editedUsername);
-        setIsEditingUsername(false);
-    };
-
     return (
-        <View style={{ paddingVertical: 60 }}>
+        <View style={{paddingVertical: 60}}>
             {/* Top Bar */}
             <View style={styles.topBar}>
                 <Pressable style={styles.topIcon}>
@@ -69,39 +52,7 @@ export default function ProfileScreen() {
                 <ThemedView style={styles.profileContainer}>
                     <View style={styles.avatarPlaceholder} />
                     <View style={styles.profileTextContainer}>
-                        <View style={styles.usernameRow}>
-                            {isEditingUsername ? (
-                                <>
-                                    <TextInput
-                                        style={styles.usernameInput}
-                                        value={"@" + editedUsername}
-                                        onChangeText={(text) => {
-                                            const cleaned = text.startsWith("@") ? text.slice(1) : text;
-                                            setEditedUsername(cleaned);
-                                        }}
-                                    />
-                                    <View style={styles.buttonRow}>
-                                        <Pressable style={styles.saveButton} onPress={saveUsername}>
-                                            <Text style={styles.saveButtonText}>Save</Text>
-                                        </Pressable>
-                                        <Pressable
-                                            style={styles.cancelButton}
-                                            onPress={() => setIsEditingUsername(false)}
-                                        >
-                                            <Text style={styles.cancelButtonText}>Cancel</Text>
-                                        </Pressable>
-                                    </View>
-                                </>
-                            ) : (
-                                <View style={styles.usernameDisplay}>
-                                    <Text style={styles.username}>@{username}</Text>
-                                    <Pressable onPress={startEditingUsername}>
-                                        <Text style={styles.editIconSmall}>✎</Text>
-                                    </Pressable>
-                                </View>
-                            )}
-                        </View>
-
+                        <Text style={styles.username}>@username</Text>
                         {isEditingBio ? (
                             <>
                                 <TextInput
@@ -140,7 +91,7 @@ export default function ProfileScreen() {
                             <Pressable
                                 style={[
                                     styles.checkBox,
-                                    preferences[index] && styles.checkBoxChecked,
+                                    preferences[index] && styles.checkBoxChecked
                                 ]}
                                 onPress={() => togglePreference(index)}
                             >
@@ -214,6 +165,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: "#fff",
     },
+
     profileContainer: {
         flexDirection: "row",
         alignItems: "center",
@@ -232,29 +184,10 @@ const styles = StyleSheet.create({
     profileTextContainer: {
         flex: 1,
     },
-    usernameRow: {
-        marginBottom: 4,
-    },
-    usernameDisplay: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 6,
-    },
     username: {
         fontWeight: "bold",
         fontSize: 16,
-    },
-    usernameInput: {
-        fontSize: 16,
-        fontWeight: "bold",
-        borderBottomWidth: 1,
-        borderColor: "#ccc",
-        color: "#000",
-        paddingVertical: 2,
-    },
-    editIconSmall: {
-        fontSize: 14,
-        color: "#000",
+        marginBottom: 4,
     },
     bio: {
         fontSize: 14,
@@ -312,6 +245,7 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         fontWeight: "bold",
     },
+
     preferenceRow: {
         flexDirection: "row",
         alignItems: "center",
@@ -345,6 +279,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
     },
+
     ingredientRow: {
         flexDirection: "row",
         alignItems: "center",
