@@ -47,6 +47,7 @@ export default function FeedScreen() {
                     <Text style={styles.description}>{post.description}</Text>
                 </View>
             ))}
+            <View style={{height: 80}}/>
         </ScrollView>
         </View>
     );
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingTop: 14,
         marginBottom: 80,
+        height: "100%",
     },
     topBar: {
         alignItems: "center",
