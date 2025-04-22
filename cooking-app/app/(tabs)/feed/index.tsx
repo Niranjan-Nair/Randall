@@ -47,6 +47,7 @@ export default function FeedScreen() {
                     <Text style={styles.description}>{post.description}</Text>
                 </View>
             ))}
+            <View style={{height: 80}}/>
         </ScrollView>
         </View>
     );

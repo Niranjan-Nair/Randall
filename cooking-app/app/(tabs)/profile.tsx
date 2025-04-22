@@ -48,6 +48,7 @@ export default function ProfileScreen() {
             </View>
 
             <ScrollView style={styles.container}>
+                <View style={{height: 10}}/>
                 {/* Profile Header */}
                 <ThemedView style={styles.profileContainer}>
                     <View style={styles.avatarPlaceholder} />
@@ -128,6 +129,7 @@ export default function ProfileScreen() {
                         <Text style={styles.addButtonText}>Add Ingredient</Text>
                     </Pressable>
                 </ThemedView>
+            <View style={{height: 80}}/>
             </ScrollView>
         </View>
     );
