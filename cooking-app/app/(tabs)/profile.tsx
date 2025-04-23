@@ -15,13 +15,8 @@ export default function ProfileScreen() {
 
     const [username, setUsername] = useState("username");
     const [editedUsername, setEditedUsername] = useState(username);
-    const [isEditingUsername, setIsEditingUsername] = useState(false);
 
-    const [ingredients, setIngredients] = useState([
-        { name: "Ingredient", amount: 0 },
-        { name: "Ingredient", amount: 0 },
-        { name: "Ingredient", amount: 0 },
-    ]);
+    const [ingredients, setIngredients] = useState(["Ingredient"]);
 
     const togglePreference = (index: number) => {
         const updated = [...preferences];
@@ -36,17 +31,8 @@ export default function ProfileScreen() {
 
     const saveBio = () => {
         setBio(editedBio);
-        setIsEditingBio(false);
-    };
-
-    const startEditingUsername = () => {
-        setEditedUsername(username);
-        setIsEditingUsername(true);
-    };
-
-    const saveUsername = () => {
         setUsername(editedUsername);
-        setIsEditingUsername(false);
+        setIsEditingBio(false);
     };
 
     return (
@@ -68,7 +54,7 @@ export default function ProfileScreen() {
                     <View style={styles.avatarPlaceholder} />
                     <View style={styles.profileTextContainer}>
                         <View style={styles.usernameRow}>
-                            {isEditingUsername ? (
+                            {isEditingBio ? (
                                 <>
                                     <TextInput
                                         style={styles.usernameInput}
@@ -78,24 +64,10 @@ export default function ProfileScreen() {
                                             setEditedUsername(cleaned);
                                         }}
                                     />
-                                    <View style={styles.buttonRow}>
-                                        <Pressable style={styles.saveButton} onPress={saveUsername}>
-                                            <Text style={styles.saveButtonText}>Save</Text>
-                                        </Pressable>
-                                        <Pressable
-                                            style={styles.cancelButton}
-                                            onPress={() => setIsEditingUsername(false)}
-                                        >
-                                            <Text style={styles.cancelButtonText}>Cancel</Text>
-                                        </Pressable>
-                                    </View>
                                 </>
                             ) : (
                                 <View style={styles.usernameDisplay}>
                                     <Text style={styles.username}>@{username}</Text>
-                                    <Pressable onPress={startEditingUsername}>
-                                        <Text style={styles.editIconSmall}>✎</Text>
-                                    </Pressable>
                                 </View>
                             )}
                         </View>
@@ -158,20 +130,10 @@ export default function ProfileScreen() {
                         <View key={index} style={styles.ingredientRow}>
                             <TextInput
                                 style={styles.ingredientLabel}
-                                value={item.name}
+                                value={item}
                                 onChangeText={(text) => {
                                     const updated = [...ingredients];
-                                    updated[index].name = text;
-                                    setIngredients(updated);
-                                }}
-                            />
-                            <TextInput
-                                style={styles.ingredientAmount}
-                                value={String(item.amount)}
-                                keyboardType="numeric"
-                                onChangeText={(text) => {
-                                    const updated = [...ingredients];
-                                    updated[index].amount = parseInt(text) || 0;
+                                    updated[index] = text;
                                     setIngredients(updated);
                                 }}
                             />
@@ -190,7 +152,7 @@ export default function ProfileScreen() {
                     <Pressable
                         style={styles.addButton}
                         onPress={() =>
-                            setIngredients([...ingredients, { name: "New Ingredient", amount: 0 }])
+                            setIngredients([...ingredients, "New Ingredient"])
                         }
                     >
                         <Text style={styles.addButtonText}>Add Ingredient</Text>
