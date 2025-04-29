@@ -19,20 +19,17 @@ export default function SearchBar() {
 
 }
 
-    const styles = StyleSheet.create({
-        container: {
-          margin: 10,
-          marginTop: 60,
-        },
-        input: {
-          height: 40,
-          borderColor: '#ccc',
-          borderWidth: 1,
-          borderRadius: 8,
-          paddingHorizontal: 10,
-          backgroundColor: 'white',
-        },
-      }); 
-
-
-      
+const styles = StyleSheet.create({
+    container: {
+        margin: 10,
+        marginTop: 60,
+    },
+    input: {
+        height: 40,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingHorizontal: 10,
+        backgroundColor: 'white',
+    },
+});

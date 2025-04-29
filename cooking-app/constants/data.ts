@@ -64,3 +64,91 @@ export const ingredients = [
         categories: ["vegan"],
     },
 ];
+
+export const postData = [
+    {
+        image: null, // or URL string if you have images
+        recipeName: "Recipe Name",
+        username: "username",
+        date: "04/28/25",
+        likes: 0,
+        ingredients: [
+            { name: "Ingredient", amount: "0g" },
+            { name: "Ingredient", amount: "0g" },
+            { name: "Ingredient", amount: "0g" },
+        ],
+        directions: [
+            { text: "direction #1: blah blah blah" },
+            { text: "direction #2: blah blah blah" },
+            { text: "direction #3: blah blah blah" },
+        ],
+    },
+    {
+        image: null, // or URL string if you have images
+        recipeName: "Recipe Name",
+        username: "username",
+        date: "04/28/25",
+        likes: 0,
+        ingredients: [
+            { name: "Ingredient", amount: "0g" },
+            { name: "Ingredient", amount: "0g" },
+            { name: "Ingredient", amount: "0g" },
+        ],
+        directions: [
+            { text: "direction #1: blah blah blah" },
+            { text: "direction #2: blah blah blah" },
+            { text: "direction #3: blah blah blah" },
+        ],
+    },
+    {
+        image: null, // or URL string if you have images
+        recipeName: "Recipe Name",
+        username: "username",
+        date: "04/28/25",
+        likes: 0,
+        ingredients: [
+            { name: "Ingredient", amount: "0g" },
+            { name: "Ingredient", amount: "0g" },
+            { name: "Ingredient", amount: "0g" },
+        ],
+        directions: [
+            { text: "direction #1: blah blah blah" },
+            { text: "direction #2: blah blah blah" },
+            { text: "direction #3: blah blah blah" },
+        ],
+    },
+    {
+        image: null, // or URL string if you have images
+        recipeName: "Recipe Name",
+        username: "username",
+        date: "04/28/25",
+        likes: 0,
+        ingredients: [
+            { name: "Ingredient", amount: "0g" },
+            { name: "Ingredient", amount: "0g" },
+            { name: "Ingredient", amount: "0g" },
+        ],
+        directions: [
+            { text: "direction #1: blah blah blah" },
+            { text: "direction #2: blah blah blah" },
+            { text: "direction #3: blah blah blah" },
+        ],
+    },
+    {
+        image: null, // or URL string if you have images
+        recipeName: "Recipe Name",
+        username: "username",
+        date: "04/28/25",
+        likes: 0,
+        ingredients: [
+            { name: "Ingredient", amount: "0g" },
+            { name: "Ingredient", amount: "0g" },
+            { name: "Ingredient", amount: "0g" },
+        ],
+        directions: [
+            { text: "direction #1: blah blah blah" },
+            { text: "direction #2: blah blah blah" },
+            { text: "direction #3: blah blah blah" },
+        ],
+    },
+]

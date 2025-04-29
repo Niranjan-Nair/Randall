@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { ScrollView, View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
 import { posts } from "@/constants/data";
+import { Link } from "expo-router";
 
 export default function FeedScreen() {
     return (
@@ -38,9 +39,11 @@ export default function FeedScreen() {
                             <Text style={styles.commentIcon}>💬</Text>
                             <Text style={{color: "#fff"}}>{post.comments}</Text>
                         </View>
-                        <Pressable style={styles.viewIcon}>
-                            <Text style={{fontWeight: "bold"}}>Open</Text>
-                        </Pressable>
+                        <Link href={`/feed/posts/${index}`}>
+                            <View style={styles.viewIcon}>
+                                <Text style={{fontWeight: "bold"}}>Open</Text>
+                            </View>
+                        </Link>
                     </View>
 
                     {/* Description */}

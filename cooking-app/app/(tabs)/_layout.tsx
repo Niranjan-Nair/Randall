@@ -48,7 +48,7 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="feed/[postid]"
+                name="feed/posts/[postid]"
                 options={{
                     href: null,
                 }}
