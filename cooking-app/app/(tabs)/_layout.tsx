@@ -48,6 +48,12 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
+                name="feed/[postid]"
+                options={{
+                    href: null,
+                }}
+            />
+            <Tabs.Screen
                 name="index"
                 options={{
                     href: null,
