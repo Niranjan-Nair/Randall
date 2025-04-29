@@ -22,6 +22,7 @@ export default function SearchBar() {
     const styles = StyleSheet.create({
         container: {
           margin: 10,
+          marginTop: 60,
         },
         input: {
           height: 40,
@@ -31,5 +32,7 @@ export default function SearchBar() {
           paddingHorizontal: 10,
           backgroundColor: 'white',
         },
-      });
+      }); 
+
+
       
