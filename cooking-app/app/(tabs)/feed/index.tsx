@@ -31,13 +31,15 @@ export default function FeedScreen() {
 
                     {/* Interaction Row */}
                     <View style={styles.interactionRow}>
-                        <View style={styles.iconGroup}>
-                            <Text style={styles.heartIcon}>❤️</Text>
-                            <Text style={{color: "#fff"}}>{post.likes}</Text>
-                        </View>
-                        <View style={styles.iconGroup}>
-                            <Text style={styles.commentIcon}>💬</Text>
-                            <Text style={{color: "#fff"}}>{post.comments}</Text>
+                        <View style={styles.nearbyIcons}>
+                            <View style={styles.iconGroup}>
+                                <Text style={styles.heartIcon}>❤️</Text>
+                                <Text style={{color: "#fff"}}>{post.likes}</Text>
+                            </View>
+                            <View style={styles.iconGroup}>
+                                <Text style={styles.commentIcon}>💬</Text>
+                                <Text style={{color: "#fff"}}>{post.comments}</Text>
+                            </View>
                         </View>
                         <Link href={`/feed/posts/${index}`}>
                             <View style={styles.viewIcon}>
@@ -127,8 +129,13 @@ const styles = StyleSheet.create({
     interactionRow: {
         flexDirection: "row",
         alignItems: "center",
-        gap: 16,
+        justifyContent: "space-between",
         marginBottom: 16,
+    },
+    nearbyIcons: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 16,
     },
     iconGroup: {
         flexDirection: "row",
