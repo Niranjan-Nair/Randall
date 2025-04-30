@@ -16,12 +16,12 @@ export default function RecipeScreen() {
         <View style={styles.container}>
             {/* Top Bar */}
             <View style={styles.topBar}>
-                <Pressable onPress={() => navigation.goBack()}>
-                    <Text style={styles.topIcon}>←</Text>
+                <Pressable style={styles.topIcon}>
+                    <Text style={styles.topIconText}>←</Text>
                 </Pressable>
                 <Text style={styles.topTitle}>Recipe</Text>
-                <Pressable>
-                    <Text style={styles.topIcon}>⚙️</Text>
+                <Pressable style={styles.topIcon}>
+                    <Text style={styles.topIconText}>⚙</Text>
                 </Pressable>
             </View>
 
@@ -85,11 +85,20 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingHorizontal: 16,
         paddingVertical: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: "#444",
+        paddingHorizontal: 16,
+    },
+    topIconText: {
+        fontSize: 18,
+        color: "#fff",
     },
     topTitle: { fontSize: 20, fontWeight: "bold", color: "#333" },
-    topIcon: { fontSize: 24, color: "#333" },
+    topIcon: {
+        width: 32,
+        alignItems: "center",
+    },
 
     recipeImageBox: {
         position: "relative",
