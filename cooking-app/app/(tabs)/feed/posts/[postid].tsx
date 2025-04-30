@@ -79,7 +79,7 @@ export default function RecipeScreen() {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: "#EDEFF1" },
+    container: { flex: 1, backgroundColor: "#111" },
     scrollContainer: { padding: 16, paddingBottom: 100 },
     topBar: {
         flexDirection: "row",
@@ -87,9 +87,10 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         paddingHorizontal: 16,
         paddingVertical: 16,
+        marginTop: 60,
     },
-    topTitle: { fontSize: 20, fontWeight: "bold", color: "#333" },
-    topIcon: { fontSize: 24, color: "#333" },
+    topTitle: { fontSize: 20, fontWeight: "bold", color: "#fff" },
+    topIcon: { fontSize: 24, color: "#fff" },
 
     recipeImageBox: {
         position: "relative",
@@ -126,8 +127,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         borderRadius: 6,
     },
-    usernameText: { fontWeight: "bold", fontSize: 16, color: "#333" },
-    dateText: { fontSize: 16, color: "#555", marginLeft: "auto", marginRight: 8 },
+    usernameText: { fontWeight: "bold", fontSize: 16, color: "#fff" },
+    dateText: { fontSize: 16, color: "#fff", marginLeft: "auto", marginRight: 8 },
     likeButton: {
         flexDirection: "row",
         alignItems: "center",
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
     sectionTitle: {
         fontSize: 20,
         fontWeight: "bold",
-        color: "#333",
+        color: "#fff",
         marginBottom: 12,
         marginTop: 16,
     },
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
         marginBottom: 8,
         justifyContent: "space-between",
     },
-    ingredientLabel: { fontSize: 16, color: "#333" },
+    ingredientLabel: { fontSize: 16, color: "#fff" },
     ingredientAmount: { fontSize: 16, fontWeight: "bold", color: "#333" },
 
     directionRow: {
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         borderRadius: 12,
     },
-    directionText: { flex: 1, fontSize: 16, color: "#333" },
+    directionText: { flex: 1, fontSize: 16, color: "#fff" },
 
     commentsButton: {
         marginTop: 20,
