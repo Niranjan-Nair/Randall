@@ -1,37 +1,92 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Pressable, Text, ScrollView, TextInput } from "react-native";
-import Content from "@/components/Content";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { router } from "expo-router";
+import * as SecureStore from "expo-secure-store";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "@/scripts/firebase";
+import { ProfileData } from "@/constants/Types";
 
 const dietaryOptions = ["Vegetarian", "Vegan", "Halal", "Kosher"];
 
 export default function ProfileScreen() {
-    const [preferences, setPreferences] = useState<boolean[]>([true, false, false, false]);
+    const [userID, setUserID] = useState(uuidv4());
 
-    const [bio, setBio] = useState("Edit your bio here...");
-    const [editedBio, setEditedBio] = useState(bio);
+    const [profile, setProfile] = useState<ProfileData>({
+        preferences: [false, false, false, false],
+        bio: "Edit your bio here...",
+        username: "@username",
+        allergies: [],
+    });
+
+    async function getUser() {
+        let uuid = userID;
+        let id = (await SecureStore.getItemAsync("userid"))?.replaceAll(/^[\"\\]+|[\"\\]+$/g, "");
+
+        if (id) {
+            setUserID(id.replaceAll(/^[\"\\]+|[\"\\]+$/g, ""));
+            uuid = id.replaceAll(/^[\"\\]+|[\"\\]+$/g, "");
+        }
+
+        await SecureStore.setItemAsync("userid", JSON.stringify(uuid).replaceAll(/^[\"\\]+|[\"\\]+$/g, ""));
+
+        let snapshot = await getDoc(doc(db, `users/${uuid.replaceAll(/^[\"\\]+|[\"\\]+$/g, "")}`));
+
+        if (snapshot.data()) {
+            setProfile({...snapshot.data() as ProfileData});
+        }
+    }
+
+    useEffect(() => {
+        getUser();
+    }, []);
+
+    async function saveProfile(newProfile: ProfileData) {
+        setDoc(doc(db, `/users/${userID}`), {...newProfile});
+    }
+
+    function setBio(bio: string) {
+        saveProfile({...profile, bio: bio});
+        setProfile({...profile, bio: bio});
+    }
+
+    function setUsername(username: string) {
+        saveProfile({...profile, username: username});
+        setProfile({...profile, username: username});
+    }
+
+    function setAllergies(allergies: string[]) {
+        saveProfile({...profile, allergies: allergies});
+        setProfile({...profile, allergies: allergies});
+    }
+
+    function setPreferences(preferences: boolean[]) {
+        saveProfile({...profile, preferences: preferences});
+        setProfile({...profile, preferences: preferences});
+    }
+
+    const [editedBio, setEditedBio] = useState(profile.bio);
     const [isEditingBio, setIsEditingBio] = useState(false);
 
-    const [username, setUsername] = useState("username");
-    const [editedUsername, setEditedUsername] = useState(username);
-
-    const [ingredients, setIngredients] = useState(["Ingredient"]);
+    const [editedUsername, setEditedUsername] = useState(profile.username.slice(1));
 
     const togglePreference = (index: number) => {
-        const updated = [...preferences];
+        const updated = [...profile.preferences];
         updated[index] = !updated[index];
         setPreferences(updated);
     };
 
     const startEditingBio = () => {
-        setEditedBio(bio);
+        setEditedBio(profile.bio);
         setIsEditingBio(true);
     };
 
     const saveBio = () => {
         setBio(editedBio);
-        setUsername(editedUsername);
+        setUsername("@" + editedUsername);
         setIsEditingBio(false);
     };
 
@@ -39,7 +94,7 @@ export default function ProfileScreen() {
         <View style={{ paddingVertical: 60 }}>
             {/* Top Bar */}
             <View style={styles.topBar}>
-                <Pressable style={styles.topIcon}>
+                <Pressable style={styles.topIcon} onPress={() => router.back()}>
                     <Text style={styles.topIconText}>←</Text>
                 </Pressable>
                 <Text style={styles.topTitle}>Profile</Text>
@@ -67,7 +122,7 @@ export default function ProfileScreen() {
                                 </>
                             ) : (
                                 <View style={styles.usernameDisplay}>
-                                    <Text style={styles.username}>@{username}</Text>
+                                    <Text style={styles.username}>{profile.username}</Text>
                                 </View>
                             )}
                         </View>
@@ -90,7 +145,7 @@ export default function ProfileScreen() {
                                 </View>
                             </>
                         ) : (
-                            <Text style={styles.bio}>{bio}</Text>
+                            <Text style={styles.bio}>{profile.bio}</Text>
                         )}
                     </View>
                     <Pressable style={styles.editButton} onPress={startEditingBio}>
@@ -110,11 +165,11 @@ export default function ProfileScreen() {
                             <Pressable
                                 style={[
                                     styles.checkBox,
-                                    preferences[index] && styles.checkBoxChecked,
+                                    profile.preferences[index] && styles.checkBoxChecked,
                                 ]}
                                 onPress={() => togglePreference(index)}
                             >
-                                {preferences[index] && <Text style={styles.checkMark}>✓</Text>}
+                                {profile.preferences[index] && <Text style={styles.checkMark}>✓</Text>}
                             </Pressable>
                         </View>
                     ))}
@@ -123,25 +178,25 @@ export default function ProfileScreen() {
                 {/* My Fridge Section */}
                 <ThemedView style={styles.section}>
                     <ThemedText type="subtitle" style={styles.sectionTitle}>
-                        My Fridge
+                        Allergies
                     </ThemedText>
 
-                    {ingredients.map((item, index) => (
+                    {profile.allergies.map((item, index) => (
                         <View key={index} style={styles.ingredientRow}>
                             <TextInput
                                 style={styles.ingredientLabel}
                                 value={item}
                                 onChangeText={(text) => {
-                                    const updated = [...ingredients];
+                                    const updated = [...profile.allergies];
                                     updated[index] = text;
-                                    setIngredients(updated);
+                                    setAllergies(updated);
                                 }}
                             />
                             <Pressable
                                 style={styles.iconButtonRed}
                                 onPress={() => {
-                                    const updated = ingredients.filter((_, i) => i !== index);
-                                    setIngredients(updated);
+                                    const updated = profile.allergies.filter((_, i) => i !== index);
+                                    setAllergies(updated);
                                 }}
                             >
                                 <Text style={styles.iconText}>×</Text>
@@ -152,10 +207,10 @@ export default function ProfileScreen() {
                     <Pressable
                         style={styles.addButton}
                         onPress={() =>
-                            setIngredients([...ingredients, "New Ingredient"])
+                            setAllergies([...profile.allergies, "New Ingredient"])
                         }
                     >
-                        <Text style={styles.addButtonText}>Add Ingredient</Text>
+                        <Text style={styles.addButtonText}>Add Allergy</Text>
                     </Pressable>
                 </ThemedView>
             </ScrollView>
@@ -175,8 +230,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
     },
     container: {
-        backgroundColor: "#111",
+        backgroundColor: "#151718",
         paddingHorizontal: 16,
+        minHeight: "100%",
         paddingTop: 14,
         marginBottom: 80,
     },

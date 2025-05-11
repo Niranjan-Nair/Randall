@@ -6,16 +6,17 @@ import { ThemedView } from "@/components/ThemedView";
 
 export default function SearchBar() {
     const [searchQuery, setSearchQuery] = useState('');
+
     return (
         <View style={styles.container}>
-          <TextInput
-            style={styles.input}
-            placeholder="Search..."
-            value={searchQuery}
-            onChangeText={text => setSearchQuery(text)}
-          />
+            <TextInput
+                style={styles.input}
+                placeholder="Search..."
+                value={searchQuery}
+                onChangeText={text => setSearchQuery(text)}
+            />
         </View>
-      );
+    );
 
 }
 
