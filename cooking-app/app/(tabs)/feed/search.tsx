@@ -1,35 +1,42 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Pressable, ScrollView } from 'react-native';
-import Content from "@/components/Content";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
+import { View, TextInput, StyleSheet, Text } from 'react-native';
 
 export default function SearchBar() {
-    const [searchQuery, setSearchQuery] = useState('');
-    return (
-        <View style={styles.container}>
-          <TextInput
-            style={styles.input}
-            placeholder="Search..."
-            value={searchQuery}
-            onChangeText={text => setSearchQuery(text)}
-          />
-        </View>
-      );
+  const [searchQuery, setSearchQuery] = useState('');
 
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Search for a recipe you'd like to make!</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Search..."
+        placeholderTextColor="#888"
+        value={searchQuery}
+        onChangeText={text => setSearchQuery(text)}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        margin: 10,
-        marginTop: 60,
-    },
-    input: {
-        height: 40,
-        borderColor: '#ccc',
-        borderWidth: 1,
-        borderRadius: 8,
-        paddingHorizontal: 10,
-        backgroundColor: 'white',
-    },
+  container: {
+    marginTop: 100,
+    paddingHorizontal: 20,
+  },
+  title: {
+    fontSize: 20,
+    marginBottom: 12,
+    fontWeight: '600',
+    color: 'white',
+    textAlign: 'center',
+  },
+  input: {
+    height: 45,
+    borderColor: '#ddd',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    backgroundColor: 'white',
+    fontSize: 16,
+  },
 });

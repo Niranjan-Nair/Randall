@@ -9,7 +9,7 @@ export default function RecipeScreen() {
     const navigation = useNavigation();
     const { postid } = useLocalSearchParams<{postid: string}>();
 
-    // Dummy data for now – later replace with Firestore fetch
+    // some random data for now – later replace with Firestore fetch
     const recipe = postData[parseInt(postid)];
 
     return (
