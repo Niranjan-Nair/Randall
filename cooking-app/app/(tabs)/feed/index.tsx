@@ -1,10 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View, Text, StyleSheet, Image, Pressable } from "react-native";
-import { ThemedView } from "@/components/ThemedView";
-import { posts } from "@/constants/data";
 import { Link } from "expo-router";
+import { db } from "@/scripts/firebase"
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { PostData } from "@/constants/Types";
 
 export default function FeedScreen() {
+    const [posts, setPosts] = useState<PostData[]>([]);
+
+    useEffect(() => {
+        getDocs(collection(db, "testmeals")).then((snapshot) => {
+            let data: PostData[] = [];
+
+            snapshot.docs.forEach((doc) => {
+                data.push({...doc.data(), id: doc.id } as PostData);
+            });
+
+            setPosts(data);
+        });
+    }, []);
+
+    async function updateLikes(id: string, index: number) {
+        const likes = posts[index].likes;
+
+        await setDoc(doc(db, `testmeals/${id}`), {
+            likes: likes + 1,
+        }, { merge: true });
+
+
+        setPosts([...posts.slice(0, index), {...posts[index], likes: posts[index].likes + 1}, ...posts.slice(index + 1)])
+    }
+
     return (
         <View style={{paddingVertical: 60}}>
         {/* Top Bar */}
@@ -14,42 +40,42 @@ export default function FeedScreen() {
         <ScrollView style={styles.container}>
             {/* Feed Posts */}
             {posts.map((post, index) => (
-                <View key={index} style={styles.postCard}>
+                <View key={post.id} style={styles.postCard}>
                     {/* Header Row */}
                     <View style={styles.headerRow}>
                         <View style={styles.profilePicPlaceholder} />
                         <Text style={styles.username}>{post.username}</Text>
-                        <Text style={styles.date}>{post.date}</Text>
+                        <Text style={styles.date}>{new Date((post.date as {nanoseconds: number; seconds: number}).seconds * 1000).toDateString()}</Text>
                     </View>
 
                     {/* Image Area */}
                     <View style={styles.imageArea}>
-                        {/* Image placeholder */}
-                        <View style={styles.fakeImage} />
-                        <Text style={styles.recipeTag}>{post.recipeName}</Text>
+                        <Image source={{ uri: post.imageURI }} style={styles.recipeImage} />
+                        <Text style={styles.recipeTag}>{post.name}</Text>
                     </View>
 
                     {/* Interaction Row */}
                     <View style={styles.interactionRow}>
                         <View style={styles.nearbyIcons}>
                             <View style={styles.iconGroup}>
-                                <Text style={styles.heartIcon}>❤️</Text>
+                                <Pressable onPress={() => updateLikes(post.id, index)}>
+                                    <Text style={styles.heartIcon}>❤️</Text>
+                                </Pressable>
                                 <Text style={{color: "#fff"}}>{post.likes}</Text>
                             </View>
-                            <View style={styles.iconGroup}>
-                                <Text style={styles.commentIcon}>💬</Text>
-                                <Text style={{color: "#fff"}}>{post.comments}</Text>
-                            </View>
+                            {/*
+                                <View style={styles.iconGroup}>
+                                    <Text style={styles.commentIcon}>💬</Text>
+                                    <Text style={{color: "#fff"}}>0</Text>
+                                </View>
+                            */}
                         </View>
-                        <Link href={`/feed/posts/${index}`}>
+                        <Link href={`/feed/posts/${post.id}`}>
                             <View style={styles.viewIcon}>
                                 <Text style={{fontWeight: "bold"}}>Open</Text>
                             </View>
                         </Link>
                     </View>
-
-                    {/* Description */}
-                    <Text style={styles.description}>{post.description}</Text>
                 </View>
             ))}
             <View style={{height: 80}}/>
@@ -109,10 +135,9 @@ const styles = StyleSheet.create({
         marginBottom: 16,
         position: "relative",
     },
-    fakeImage: {
+    recipeImage: {
         height: 250,
         borderRadius: 8,
-        backgroundColor: "#fff",
     },
     recipeTag: {
         position: "absolute",

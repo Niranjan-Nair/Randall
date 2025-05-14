@@ -1,7 +1,6 @@
 export type IngredientData = {
 	name: string;
 	amount: number;
-	unit: string;
 };
 
 export type CommentData = {
@@ -17,15 +16,16 @@ export type InstructionData = {
 };
 
 export type PostData = {
-    title: string;
-	description: string;
+    name: string;
 	imageURI: string;
-	uid: number;
+	username: string;
 	likes: number;
-	comments: CommentData[];
+    locale: string;
 	ingredients: IngredientData[];
-	instructions: InstructionData[];
-    date: Date;
+	instructions: string[];
+    tags: string[];
+    date: Date | { nanoseconds: number; seconds: number };
+    id: string;
 };
 
 export type UserData = {
@@ -38,3 +38,10 @@ export type UserData = {
     disallowed: IngredientData[];
 	fridge: IngredientData[];
 };
+
+export type ProfileData = {
+    preferences: boolean[];
+    bio: string;
+    username: string;
+    allergies: string[];
+}
