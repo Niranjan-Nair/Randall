@@ -22,14 +22,9 @@ export default function RecipeScreen() {
         category: "",
     });
 
-    useEffect(() => {
-        async function getData() {
-            const data = await getDoc(doc(db, `testmeals/${postid}`));
-            setRecipe(data.data() as PostData);
-        }
-
-        getData();
-    }, []);
+    getDoc(doc(db, `testmeals/${postid}`)).then(data => {
+        setRecipe(data.data() as PostData);
+    });
 
     async function updateLikes() {
         const likes = recipe.likes;

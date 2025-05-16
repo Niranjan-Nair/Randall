@@ -1,27 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { Link } from "expo-router";
 import { db } from "@/scripts/firebase"
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
-import { PostData, ProfileData } from "@/constants/Types";
-import * as SecureStore from "expo-secure-store";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { PostData } from "@/constants/Types";
 import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
+import { PostsContext } from "@/app/_layout";
 
 export default function FeedScreen() {
-    const [posts, setPosts] = useState<PostData[]>([]);
+    const {posts, setPosts} = useContext(PostsContext);
 
-    useEffect(() => {
-        getDocs(collection(db, "testmeals")).then((snapshot) => {
-            let data: PostData[] = [];
+    getDocs(collection(db, "testmeals")).then((snapshot) => {
+        let data: PostData[] = [];
 
-            snapshot.docs.forEach((doc) => {
-                data.push({...doc.data(), id: doc.id } as PostData);
-            });
-
-            setPosts(data);
+        snapshot.docs.forEach((doc) => {
+            data.push({...doc.data(), id: doc.id } as PostData);
         });
-    }, []);
+
+        setPosts!(data);
+    });
 
     async function updateLikes(id: string, index: number) {
         const likes = posts[index].likes;
@@ -31,7 +28,7 @@ export default function FeedScreen() {
         }, { merge: true });
 
 
-        setPosts([...posts.slice(0, index), {...posts[index], likes: posts[index].likes + 1}, ...posts.slice(index + 1)])
+        setPosts!([...posts.slice(0, index), {...posts[index], likes: posts[index].likes + 1}, ...posts.slice(index + 1)])
     }
 
     return (
@@ -42,7 +39,7 @@ export default function FeedScreen() {
         </View>
         <ScrollView style={styles.container}>
             {/* Feed Posts */}
-            {posts.map((post, index) => (
+            {posts.map((post: PostData, index: number) => (
                 <View key={post.id} style={styles.postCard}>
                     {/* Header Row */}
                     <View style={styles.headerRow}>
@@ -73,7 +70,10 @@ export default function FeedScreen() {
                                 </View>
                             */}
                         </View>
-                        <Link href={`/feed/posts/${post.id}`}>
+                        <Link href={{
+                                pathname: "/feed/posts/[postid]",
+                                params: { postid: post.id },
+                            }}>
                             <View style={styles.viewIcon}>
                                 <Text style={{fontWeight: "bold"}}>Open</Text>
                             </View>
