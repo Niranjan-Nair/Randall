@@ -3,9 +3,43 @@ import { ScrollView, View, Text, StyleSheet, Image, Pressable } from "react-nati
 import { Link } from "expo-router";
 import { db } from "@/scripts/firebase"
 import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
-import { PostData } from "@/constants/Types";
+import { PostData, ProfileData } from "@/constants/Types";
+import * as SecureStore from "expo-secure-store";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 
 export default function FeedScreen() {
+    const [userID, setUserID] = useState(uuidv4());
+
+    const [profile, setProfile] = useState<ProfileData>({
+        preferences: [false, false, false, false],
+        bio: "Edit your bio here...",
+        username: "@username",
+        allergies: [],
+    });
+
+    async function getUser() {
+        let uuid = userID;
+        let id = (await SecureStore.getItemAsync("userid"))?.replaceAll(/^[\"\\]+|[\"\\]+$/g, "");
+
+        if (id) {
+            setUserID(id.replaceAll(/^[\"\\]+|[\"\\]+$/g, ""));
+            uuid = id.replaceAll(/^[\"\\]+|[\"\\]+$/g, "");
+        }
+
+        await SecureStore.setItemAsync("userid", JSON.stringify(uuid).replaceAll(/^[\"\\]+|[\"\\]+$/g, ""));
+
+        let snapshot = await getDoc(doc(db, `users/${uuid.replaceAll(/^[\"\\]+|[\"\\]+$/g, "")}`));
+
+        if (snapshot.data()) {
+            setProfile({...snapshot.data() as ProfileData});
+        }
+    }
+
+    useEffect(() => {
+        getUser();
+    }, []);
+
     const [posts, setPosts] = useState<PostData[]>([]);
 
     useEffect(() => {
@@ -39,7 +73,14 @@ export default function FeedScreen() {
         </View>
         <ScrollView style={styles.container}>
             {/* Feed Posts */}
-            {posts.map((post, index) => (
+            {posts.filter(post => {
+                let predicate = true;
+
+                if (profile.preferences[0] || profile.preferences[1])
+                    predicate &&= (post.category === "Vegetarian");
+                if (profile.preferences[2] || profile.preferences[3])
+                    predicate &&= (post.category !== "Pork")
+            }).map((post, index) => (
                 <View key={post.id} style={styles.postCard}>
                     {/* Header Row */}
                     <View style={styles.headerRow}>

@@ -17,6 +17,7 @@ export type InstructionData = {
 
 export type PostData = {
     name: string;
+    category: string;
 	imageURI: string;
 	username: string;
 	likes: number;

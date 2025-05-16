@@ -19,6 +19,7 @@ export default function RecipeScreen() {
         tags: [],
         date: new Date(),
         id: "",
+        category: "",
     });
 
     useEffect(() => {
