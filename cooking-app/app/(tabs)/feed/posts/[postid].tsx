@@ -68,10 +68,10 @@ export default function RecipeScreen() {
                     <View style={styles.avatarPlaceholder} />
                     <Text style={styles.usernameText}>{recipe.username}</Text>
                     <Text style={styles.dateText}>{new Date((recipe.date as {nanoseconds: number; seconds: number}).seconds * 1000).toDateString()}</Text>
-                    <View style={styles.likeButton}>
+                    <Pressable style={styles.likeButton} onPress={updateLikes}>
                         <Text style={styles.heartIcon}>❤️</Text>
                         <Text style={styles.likeCount}>{recipe.likes}</Text>
-                    </View>
+                    </Pressable>
                 </View>
 
                 {/* Ingredients */}
