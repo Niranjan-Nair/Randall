@@ -19,16 +19,12 @@ export default function RecipeScreen() {
         tags: [],
         date: new Date(),
         id: "",
+        category: "",
     });
 
-    useEffect(() => {
-        async function getData() {
-            const data = await getDoc(doc(db, `testmeals/${postid}`));
-            setRecipe(data.data() as PostData);
-        }
-
-        getData();
-    }, []);
+    getDoc(doc(db, `testmeals/${postid}`)).then(data => {
+        setRecipe(data.data() as PostData);
+    });
 
     async function updateLikes() {
         const likes = recipe.likes;
@@ -72,10 +68,10 @@ export default function RecipeScreen() {
                     <View style={styles.avatarPlaceholder} />
                     <Text style={styles.usernameText}>{recipe.username}</Text>
                     <Text style={styles.dateText}>{new Date((recipe.date as {nanoseconds: number; seconds: number}).seconds * 1000).toDateString()}</Text>
-                    <View style={styles.likeButton}>
+                    <Pressable style={styles.likeButton} onPress={updateLikes}>
                         <Text style={styles.heartIcon}>❤️</Text>
                         <Text style={styles.likeCount}>{recipe.likes}</Text>
-                    </View>
+                    </Pressable>
                 </View>
 
                 {/* Ingredients */}
