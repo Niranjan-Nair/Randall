@@ -50,7 +50,7 @@ export default function FeedScreen() {
         <View style={{paddingVertical: 60}}>
         {/* Top Bar */}
         <View style={styles.topBar}>
-            <Text style={styles.topTitle}>{profile!.username}</Text>
+            <Text style={styles.topTitle}>Posts</Text>
         </View>
         <ScrollView style={styles.container}>
             {/* Feed Posts */}
